@@ -1,0 +1,65 @@
+.nota-form {
+  margin: 0 auto;
+  width: calc(100% - 32px);
+  box-sizing: border-box;
+  
+  h2 {
+    font: var(--mat-sys-display-small);
+    margin: 12px 0;
+  }
+
+  .separator {
+    width: 100%;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--mat-sys-primary);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    span {
+      font: var(--mat-sys-title-medium);
+      width: 25%;
+    }
+
+    .inputs {
+      width: 70%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+
+      .full-width {
+        width: 100%;
+      }
+      
+      .half-width {
+        width: calc(50% - 16px);
+      }
+    }
+  }
+
+  .botoes {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: flex-end;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}

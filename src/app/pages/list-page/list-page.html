@@ -1,0 +1,119 @@
+<div class="list-page">
+  <div class="filters">
+    <h2>Filtrar Notas</h2>
+    <!-- Fazer filtro por nome, cpf, data entrada e data saida -->
+    <form [formGroup]="form">
+      <mat-form-field class="half-width">
+        <mat-label>Nome</mat-label>
+        <input type="text" matInput formControlName="nome">
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <mat-label>CPF</mat-label>
+        <input type="text" matInput formControlName="cpf">
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <mat-label>Data Entrada</mat-label>
+        <input type="date" matInput formControlName="dtEntrada">
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <mat-label>Data Retirada</mat-label>
+        <input type="date" matInput formControlName="dtSaida">
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <mat-label>Status</mat-label>
+        <mat-select type="text" matInput formControlName="status">
+          @for (possibleStatus of possibleStatuses; track possibleStatus) {
+            <mat-option [value]="possibleStatus">{{possibleStatus}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </form>
+
+    <div class="buttons">
+      @if (filtered()) {
+        <span class="limpar" (click)="clear()">Limpar</span>
+      }
+      <button matButton="filled" (click)="filter()" class="search-btn">Procurar <mat-icon>search</mat-icon></button>
+    </div>
+  </div>
+
+  @if (!loading) {
+    <table mat-table [dataSource]="notasDS" class="mat-elevation-z8 notas-table" matSort matSortDisableClear>
+      <ng-container matColumnDef="numeroOs">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>OS</th>
+        <td mat-cell *matCellDef="let nota"> {{nota.numeroOs}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="clienteNome">
+        <th mat-header-cell *matHeaderCellDef>Cliente</th>
+        <td mat-cell *matCellDef="let nota"> {{nota.cliente.nome}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="clienteCPF">
+        <th mat-header-cell *matHeaderCellDef>CPF</th>
+        <td mat-cell *matCellDef="let nota"> {{(nota.cliente.cpf ? (nota.cliente.cpf | mask: "000.000.000-00") : "Não registrado")}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataEntrada">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dt. Entrada</th>
+        <td mat-cell *matCellDef="let nota"> {{nota.dataEntrada | date:"dd/MM/y"}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataRetirada">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dt. Retirada</th>
+        <td mat-cell *matCellDef="let nota"> {{(nota.dataRetirada | date:"dd/MM/y") ?? "Não registrado"}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="aparelho">
+        <th mat-header-cell *matHeaderCellDef>Aparelho</th>
+        <td mat-cell *matCellDef="let nota"> {{nota.aparelho.marca}}-{{nota.aparelho.modelo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="orcamentoValor">
+        <th mat-header-cell *matHeaderCellDef>Valor</th>
+        <td mat-cell *matCellDef="let nota"> {{nota.valorOrcamento | currency:"BRL":"symbol":"1.2-2"}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let nota"> {{nota.status}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let nota">
+          <mat-icon class="action-icon" (click)="openDetails(nota.numeroOs)" fontIcon="edit_square"></mat-icon>
+          <mat-icon class="action-icon" (click)="print(nota)" fontIcon="print"></mat-icon>
+          <mat-icon class="action-icon" (click)="openDeleteDialog(nota)" fontIcon="delete"></mat-icon>
+        </td>
+      </ng-container>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-content" [attr.colspan]="displayedCols.length">
+          Nenhuma nota encontrada.
+        </td>
+      </tr>
+      <tr mat-header-row *matHeaderRowDef="displayedCols"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedCols;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+
+    <a matButton="filled" class="add-btn" routerLink="/form"><mat-icon>add</mat-icon>Nova Nota</a>
+  } @else {
+    <div class="center">
+      <mat-spinner diameter="100"></mat-spinner>
+    </div>
+  }
+</div>
+
+<ng-template #confirmDialog let-data>
+  <h2 mat-dialog-title>Confirmar exclusão</h2>
+  <mat-dialog-content>
+    Tem certeza que deseja excluir a nota <b>{{data.numeroOs}}</b>?
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close="false">Cancelar</button>
+    <button mat-raised-button color="warn" mat-dialog-close="true">Excluir</button>
+  </mat-dialog-actions>
+</ng-template>

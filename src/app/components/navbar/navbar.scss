@@ -1,0 +1,21 @@
+.navbar {
+  width: 100%;
+  position: fixed;
+  height: 96px;
+  background: var(--mat-sys-secondary);
+  color: var(--mat-sys-on-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  box-sizing: border-box;
+  z-index: 3;
+
+  img {
+    height: 100%;
+  }
+}
+.spacer {
+  height: 96px;
+  margin-bottom: 16px;
+}

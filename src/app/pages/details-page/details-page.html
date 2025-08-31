@@ -1,0 +1,123 @@
+<div class="nota-form">
+  <div class="title separator">
+    @if (id) {
+      <h2>Editando nota {{id}}</h2>
+    } @else {
+      <h2>Criar nota</h2>
+    }
+  </div>
+  <form [formGroup]="form">
+    <div class="cliente separator">
+      <span>Cliente</span>
+      <div class="inputs">
+        <mat-form-field class="half-width">
+          <mat-label>Nome</mat-label>
+          <input type="text" matInput formControlName="nomeCliente">
+          @if (form.get('nomeCliente')?.hasError('required')) {
+            <mat-error>Nome do cliente é obrigatório</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <mat-label>Status</mat-label>
+          <mat-select type="text" matInput formControlName="status">
+            @for (possibleStatus of possibleStatuses; track possibleStatuses) {
+              <mat-option [value]="possibleStatus">{{possibleStatus}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <mat-label>CPF</mat-label>
+          <input type="text" mask="000.000.000-00" matInput formControlName="cpfCliente">
+          @if (form.get('cpfCliente')?.hasError('cpfInvalid')) {
+            <mat-error>CPF inválido</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <mat-label>Telefone</mat-label>
+          <input type="text" mask="90000-0000" matInput formControlName="telefoneCliente">
+          @if (form.get('telefoneCliente')?.hasError('required')) {
+            <mat-error>Telefone do cliente é obrigatório</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="aparelho separator">
+      <span>Aparelho</span>
+      <div class="inputs">
+        <mat-form-field class="full-width">
+          <mat-label>Tipo</mat-label>
+          <input type="text" matInput formControlName="tipoAparelho">
+          @if (form.get('tipoAparelho')?.hasError('required')) {
+            <mat-error>Tipo do aparelho é obrigatório</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Marca</mat-label>
+          <input type="text" matInput formControlName="marcaAparelho">
+          @if (form.get('marcaAparelho')?.hasError('required')) {
+            <mat-error>Marca do aparelho é obrigatório</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Modelo</mat-label>
+          <input type="text" matInput formControlName="modeloAparelho">
+          @if (form.get('modeloAparelho')?.hasError('required')) {
+            <mat-error>Modelo do aparelho é obrigatório</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="servico separator">
+      <span>Serviço</span>
+      <div class="inputs">
+        <mat-form-field class="half-width">
+          <mat-label>Data Entrada</mat-label>
+          <input type="date" matInput formControlName="dataEntrada">
+          @if (form.get('dataEntrada')?.hasError('required')) {
+            <mat-error>Data de Entrada é obrigatório</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <mat-label>Data Retirada</mat-label>
+          <input type="date" matInput formControlName="dataRetirada">
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <mat-label>Garantia (em dias)</mat-label>
+          <input type="number" matInput formControlName="garantia">
+          @if (form.get('garantia')?.hasError('required')) {
+            <mat-error>Garantia é obrigatório</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <mat-label>Valor do Orçamento</mat-label>
+          <input type="text" mask="separator.2" thousandSeparator="." decimalMarker="," prefix="R$ " matInput formControlName="orcamentoValor">
+          @if (form.get('orcamentoValor')?.hasError('required')) {
+            <mat-error>Valor do orçamento é obrigatório</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Orçamento</mat-label>
+          <textarea cdkTextareaAutosize type="text" matInput formControlName="orcamento"></textarea>
+          @if (form.get('orcamento')?.hasError('required')) {
+            <mat-error>Orçamento é obrigatório</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Obs.:</mat-label>
+          <textarea cdkTextareaAutosize type="text" matInput formControlName="obs"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="botoes">
+      <a matButton="outlined" class="add-btn" routerLink="/home"><mat-icon>cancel</mat-icon>Cancelar</a>
+      <button (click)="save($event)" matButton="filled" class="add-btn"><mat-icon>add</mat-icon>Salvar</button>
+    </div>
+  </form>
+</div>
+
+@if (loading) {
+  <div class="overlay">
+    <mat-spinner diameter="200"></mat-spinner>
+  </div>
+}

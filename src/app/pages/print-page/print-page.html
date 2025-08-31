@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="cabecalho">
+    <div class="logo">
+      <img src="images/logo-transparent.png" alt="Logotipo Eletro Gil" />
+    </div>
+    <div class="dados-empresa">
+      <div class="nome-empresa">Eletro Gil - Assistência Técnica</div>
+      <div>Rua José Cavalcante Borba 112 - Térreo</div>
+      <div>Telefone: 81 3787-3602</div>
+      <div>Whatsapp: 81 9 9641-1787</div>
+    </div>
+    <div class="numero-os">
+      <div class="field-value">OS {{ nota()?.numeroOs ?? '-' }}</div>
+    </div>
+  </div>
+
+  <h2>Ordem de Serviço</h2>
+
+  <div class="linha">
+    <div class="field">
+      <span class="field-label">Nome do Cliente:</span>
+      <div class="field-value">{{ nota()?.cliente?.nome }}</div>
+    </div>
+    <div class="field">
+      <span class="field-label">Telefone:</span>
+      <div class="field-value">{{ nota()?.cliente?.telefone }}</div>
+    </div>
+    <div class="field">
+      <span class="field-label">Data de Entrada:</span>
+      <div class="field-value">{{ nota()?.dataEntrada | date:'dd/MM/yyyy' }}</div>
+    </div>
+  </div>
+
+  <div class="linha">
+    <div class="field">
+      <span class="field-label">Tipo de Aparelho:</span>
+      <div class="field-value">{{ nota()?.aparelho?.tipo }}</div>
+    </div>
+    <div class="field">
+      <span class="field-label">Marca/Modelo:</span>
+      <div class="field-value">{{ nota()?.aparelho?.marca }} - {{ nota()?.aparelho?.modelo }}</div>
+    </div>
+  </div>
+
+  <div class="field">
+    <span class="field-label">Orçamento:</span>
+    <div class="field-value">{{ nota()?.orcamento }}</div>
+  </div>
+
+  <div class="field">
+    <span class="field-label">Valor:</span>
+    <div class="field-value">{{ nota()?.valorOrcamento | currency:'BRL':'symbol':'1.2-2' }}</div>
+  </div>
+
+  <div class="field">
+    <span class="field-label">Observações:</span>
+    <div class="field-value">{{ nota()?.obs ?? '-' }}</div>
+  </div>
+
+  <div class="linha">
+    <div class="field">
+      <span class="field-label">Garantia (dias):</span>
+      <div class="field-value">{{ nota()?.garantia }}</div>
+    </div>
+    <div class="field">
+      <span class="field-label">Data de Retirada:</span>
+      <div class="field-value">{{ nota()?.dataRetirada ? (nota()?.dataRetirada | date:'dd/MM/yyyy') : '-' }}</div>
+    </div>
+  </div>
+
+  <div class="assinatura">
+    <div class="assinatura-linha"></div>
+    <div>Assinatura do Cliente</div>
+  </div>
+</div>
