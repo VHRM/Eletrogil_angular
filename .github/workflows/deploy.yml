@@ -25,11 +25,11 @@ jobs:
         run: npm ci
 
       - name: Build Angular
-        run: npm run build -- --configuration production --base-href /EletroGil/
+        run: npm run build -- --configuration production --base-href ./
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/EletroGil
+          publish_dir: ./dist/EletroGil/browser
 
