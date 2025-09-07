@@ -28,10 +28,10 @@ jobs:
         run: npm run build -- --configuration production --base-href /Eletrogil_angular/
 
       - name: Copy index.html to 404.html   # garante que rotas SPA não quebrem no GitHub Pages
-        run: cp ./dist/EletroGil/browser/index.html ./dist/EletroGil/browser/404.html
+        run: cp ./dist/Eletrogil/browser/index.html ./dist/Eletrogil/browser/404.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/EletroGil/browser
+          publish_dir: ./dist/Eletrogil/browser
