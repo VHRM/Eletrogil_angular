@@ -88,7 +88,7 @@ export class GoogleApiService {
       "Content-Type": "application/json"
     });
 
-    const range = `BD!N${rowNumber}`;
+    const range = `BD!O${rowNumber}`;
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${id}/values/${range}?valueInputOption=RAW`;
 
     const body = {
