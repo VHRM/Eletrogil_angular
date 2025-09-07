@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular
-        run: npm run build -- --configuration production --base-href ./
+        run: ng build --prod --base-href "https://vhrm.github.io/Eletrogil_angular/"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
