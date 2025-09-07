@@ -17,6 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([authInterceptor])
     ),
-    { provide: APP_BASE_HREF, useValue: environment.production ? '/EletroGil_angular/' : '/' }
+    { provide: APP_BASE_HREF, useValue: environment.production ? '/Eletrogil_angular/' : '/' }
   ]
 };
