@@ -3,7 +3,7 @@ name: Deploy Angular to GitHub Pages
 on:
   push:
     branches:
-      - main   # ou o branch que você usa
+      - main   # troca se não for o seu branch principal
 
 permissions:
   contents: write
@@ -28,4 +28,4 @@ jobs:
         run: npm run build -- --configuration production --base-href /Eletrogil_angular/
 
       - name: Deploy with angular-cli-ghpages
-        run: npx angular-cli-ghpages --dir=dist/EletroGil/browser --no-silent --base-href /Eletrogil_angular/
+        run: npx angular-cli-ghpages --dir=dist/EletroGil/browser
