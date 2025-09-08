@@ -28,4 +28,6 @@ jobs:
         run: npm run build -- --configuration production --base-href /Eletrogil_angular/
 
       - name: Deploy with angular-cli-ghpages
-        run: npx angular-cli-ghpages --dir=dist/EletroGil/browser
+        run: npx angular-cli-ghpages --dir=dist/EletroGil/browser --name "github-actions[bot]" --email "github-actions[bot]@users.noreply.github.com"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
