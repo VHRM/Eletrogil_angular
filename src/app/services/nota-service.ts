@@ -149,7 +149,7 @@ export class NotaService {
   }
 
   delete(os: number) {
-    return this.getNotas().pipe(
+    return this.getNotas().pipe(      
       switchMap((notas) => {
         const index = notas.findIndex(nota => nota?.numeroOs === os);
 

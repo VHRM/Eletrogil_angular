@@ -2,7 +2,7 @@ import { Component, effect, signal, computed, type OnInit, viewChild, ViewChild,
 import type { Nota } from '../../interfaces/nota';
 import { NotaService } from '../../services/nota-service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { APP_BASE_HREF, CurrencyPipe, DatePipe } from '@angular/common';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxMaskPipe } from 'ngx-mask'
@@ -43,6 +43,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   styleUrl: './list-page.scss'
 })
 export class ListPage implements OnInit, AfterViewInit {
+  readonly baseHref = inject(APP_BASE_HREF);
   loading = true;
   readonly possibleStatuses = ["Peças Solicitadas", "Não feito", "Arrumado", "Entregue"];
   private readonly notaService = inject(NotaService);
@@ -191,7 +192,8 @@ export class ListPage implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
+      console.log('entrei dialog', result, typeof(result))
+      if (result) {
         this.deleteRow(nota);
       }
     });
@@ -211,6 +213,12 @@ export class ListPage implements OnInit, AfterViewInit {
     const url = this.router.serializeUrl(
       this.router.createUrlTree(['/print', nota.numeroOs])
     );
-    window.open(url, '_blank');
+
+    // Ensure no double slashes when concatenating
+    const fullUrl = this.baseHref.endsWith('/')
+      ? this.baseHref.slice(0, -1) + url
+      : this.baseHref + url;
+
+    window.open(fullUrl, '_blank');
   }
 }

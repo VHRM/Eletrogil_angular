@@ -113,7 +113,7 @@
     Tem certeza que deseja excluir a nota <b>{{data.numeroOs}}</b>?
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close="false">Cancelar</button>
-    <button mat-raised-button color="warn" mat-dialog-close="true">Excluir</button>
+    <button mat-button [mat-dialog-close]="false">Cancelar</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true">Excluir</button>
   </mat-dialog-actions>
 </ng-template>
